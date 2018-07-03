@@ -155,7 +155,7 @@ if __name__ == '__main__':
             wr = csv.writer(myfile, quoting=csv.QUOTE_ALL)
             myfile.close()
     with Pool(cpu_count()-1) as p:
-        for i, _ in enumerate(p.imap_unordered(img_search, procs), 1):
+        for i, _ in enumerate(p.imap_unordered(img_search, procs, chunksize = 10), 1):
             end_time = time()
             elapsed_time = end_time - start_time
             sys.stderr.write
