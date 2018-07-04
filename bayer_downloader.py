@@ -131,19 +131,19 @@ def img_search(link):
 
 #Running the script
 if __name__ == '__main__':
-    # list_of_links = search_years()
-    # with Pool(cpu_count()-1) as p:
-    #     p.map(csv_generator, [link for link in list_of_links])
-    # p.close()
-    # p.join()
-    #
-    #
-    # with Pool(cpu_count()-1) as p:
-    #     p.map(get_newspapers, [csv_file for csv_file in os.listdir('.') if csv_file.endswith('.csv')])
-    # p.close()
-    # p.join()
-    #
-    # merge_all_newspapers()
+    list_of_links = search_years()
+    with Pool(cpu_count()-1) as p:
+        p.map(csv_generator, [link for link in list_of_links])
+    p.close()
+    p.join()
+
+
+    with Pool(cpu_count()-1) as p:
+        p.map(get_newspapers, [csv_file for csv_file in os.listdir('.') if csv_file.endswith('.csv')])
+    p.close()
+    p.join()
+
+    merge_all_newspapers()
 
     start_time = time()
 
