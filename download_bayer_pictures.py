@@ -5,6 +5,7 @@ import os, errno
 import pandas as pd
 import multiprocessing
 from multiprocessing import cpu_count, Pool
+from time import sleep
 
 # def setting_increments(i):
 #     for x in os.listdir(i):
@@ -26,7 +27,7 @@ def get_images(row):
     date = row[4].split('.all')[0]
     date = date.split('/')[-1]
 
-    page = row[2].strip()
+    page = row[3].strip()
 
     try:
         os.makedirs("Bayern_Articles/{}/{}".format(issue,date))
@@ -34,7 +35,7 @@ def get_images(row):
         if e.errno == errno.EEXIST:
             print('same article')
 
-    urllib.request.urlretrieve(img_link,"Bayern_Articles/{}/{}/{}{}.jpeg".format(issue,date,date,page))
+    urllib.request.urlretrieve(img_link,"Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page))
 
 if __name__ == '__main__':
     for csv_file in os.listdir('.'):
