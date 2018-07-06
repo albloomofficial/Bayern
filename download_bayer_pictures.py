@@ -27,7 +27,7 @@ def get_images(row):
     date = row[4].split('.all')[0]
     date = date.split('/')[-1]
 
-    page = row[3].strip()
+    page = str(row[3]).strip()
 
     try:
         os.makedirs("Bayern_Articles/{}/{}".format(issue,date))
