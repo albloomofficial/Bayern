@@ -35,7 +35,10 @@ def get_images(row):
         if e.errno == errno.EEXIST:
             print('same article')
 
-    urllib.request.urlretrieve(img_link,"Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page))
+    if not os.path.isfile("Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page)):
+        urllib.request.urlretrieve(img_link,"Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page))
+    else:
+        print('we already got this file')
 
 if __name__ == '__main__':
     for csv_file in os.listdir('.'):
