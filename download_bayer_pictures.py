@@ -22,13 +22,13 @@ def list_maker(csv_file):
 def get_images(row):
     name = multiprocessing.current_process().name
     img_link = row[0].strip()
-    issue = row[1].strip()
+    issue = unicode(row[1].strip())
     print(issue)
 
     date = row[4].split('.all')[0]
     date = date.split('/')[-1]
 
-    page = str(row[3]).strip()
+    page = unicode(row[3]).strip()
 
     try:
         os.makedirs("Bayern_Articles/{}/{}".format(issue,date))
