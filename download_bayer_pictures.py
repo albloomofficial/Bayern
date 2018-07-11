@@ -20,6 +20,7 @@ def list_maker(csv_file):
     return list_of_values
 
 def get_images(row):
+    name = multiprocessing.current_process().name
     img_link = row[0].strip()
     issue = row[1].strip()
     print(issue)
@@ -33,12 +34,12 @@ def get_images(row):
         os.makedirs("Bayern_Articles/{}/{}".format(issue,date))
     except OSError as e:
         if e.errno == errno.EEXIST:
-            print('same article')
+            print('{}: same article'.format(name))
 
     if not os.path.isfile("Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page)):
         urllib.request.urlretrieve(img_link,"Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page))
     else:
-        print('we already got this file')
+        print('{}: we already got this file'.format(name))
 
 if __name__ == '__main__':
     for csv_file in os.listdir('.'):
