@@ -7,13 +7,6 @@ import multiprocessing
 from multiprocessing import cpu_count, Pool
 from time import sleep
 
-# def setting_increments(i):
-#     for x in os.listdir(i):
-#         if x.endswith('totals.csv'):
-#             list_of_values = list_maker(i,x)
-#
-#     return list_of_values
-
 def list_maker(csv_file):
     df = pd.read_csv(csv_file)
     list_of_values = df.values.tolist()
@@ -45,10 +38,11 @@ if __name__ == '__main__':
     for csv_file in os.listdir('.'):
         if csv_file.startswith('bayer_img_links'):
             image_list = list_maker(csv_file)
-            iteration_list = [row for row in image_list]
-            with Pool(cpu_count()) as p:
-                p.map(get_images, iteration_list, chunksize = 1000)
-            p.close()
-            p.join()
-
-            # print(image_list[0][4].split('.all')[0].split('/')[-1])
+            for i in range(4):
+                iteration_list = [row for row in image_list]
+                splitter = int(len(iteration_list)/4)
+                iteration_list = iteration_list[i*splitter:(i+1)*splitter]
+                with Pool(cpu_count()) as p:
+                    p.map(get_images, iteration_list, chunksize = 10)
+                p.close()
+                p.join()
