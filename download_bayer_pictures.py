@@ -4,7 +4,8 @@ import urllib.request
 import os, errno
 import pandas as pd
 import multiprocessing
-from multiprocessing import cpu_count, Pool, ThreadPool
+from multiprocessing import cpu_count, Pool
+from multiprocessing.pool import ThreadPool
 from time import sleep
 
 def list_maker(csv_file):
