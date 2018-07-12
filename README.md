@@ -1,5 +1,5 @@
 
-#Issues
+## Issue 1
 ```
 Traceback (most recent call last):
   File "download_bayer_pictures.py", line 43, in <module>
@@ -10,8 +10,18 @@ Traceback (most recent call last):
     raise self._value
 multiprocessing.pool.MaybeEncodingError: Error sending result: '<multiprocessing.pool.ExceptionWithTraceback object at 0x109a0df98>'. Reason: 'TypeError("cannot serialize '_io.BufferedReader' object",)'
 ```
-
+### Edit 1
 Most likely has something to do with the multiprocessing module. I don't
 fully understand what the problem is but I think it's having problems passing
 information between the processes and the pool. This needs looking into but
 for now I sort of did an inelegant workaround with a try function
+
+### Edit 2
+Turns out its an encoding error. Fixed by ensuring bash shell default encoding
+was utf-8 rather than ascii. Kept try function in there for first trial run of
+downloads, but recommend removing later.
+
+```
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+```
