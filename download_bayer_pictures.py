@@ -43,11 +43,10 @@ if __name__ == '__main__':
         if csv_file.startswith('bayer_img_links'):
             image_list = list_maker(csv_file)
             iteration_list = [row for row in image_list]
-            try:
-                with Pool(cpu_count()) as p:
+            with Pool(cpu_count()) as p:
+                try:
                     p.map(get_images, iteration_list, chunksize = 1000)
-            except TypeError:
-                pass
-            finally:
-                p.close()
-                p.join()
+                except TypeError:
+                    pass
+            p.close()
+            p.join()
