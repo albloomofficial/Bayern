@@ -44,10 +44,6 @@ if __name__ == '__main__':
             image_list = list_maker(csv_file)
             iteration_list = [row for row in image_list]
             with Pool(cpu_count()) as p:
-                try:
-                    p.map(get_images, iteration_list, chunksize = 1000)
-                except TypeError:
-                    print('pesky TypeError')
-                    continue
+                p.map(get_images, iteration_list, chunksize = 1000)
             p.close()
             p.join()
