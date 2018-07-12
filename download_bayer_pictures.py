@@ -14,29 +14,27 @@ def list_maker(csv_file):
 
 def get_images(row):
     #sadly kept getting a typeerror which I will attach in the read me
+    name = multiprocessing.current_process().name
+    img_link = row[0].strip()
+    issue = str(row[1].strip().encode("utf-8").decode("utf-8"))
+    print(issue)
+
+    date = row[4].split('.all')[0]
+    date = date.split('/')[-1]
+
+    page = str(row[3]).strip()
+
     try:
-        name = multiprocessing.current_process().name
-        img_link = row[0].strip()
-        issue = str(row[1].strip().encode("utf-8").decode("utf-8"))
-        print(issue)
+        os.makedirs("Bayern_Articles/{}/{}".format(issue,date))
+    except OSError as e:
+        if e.errno == errno.EEXIST:
+            print('{}: same article'.format(name))
 
-        date = row[4].split('.all')[0]
-        date = date.split('/')[-1]
+    if not os.path.isfile("Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page)):
+        urllib.request.urlretrieve(img_link,"Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page))
+    else:
+        print('{}: we already got this file'.format(name))
 
-        page = str(row[3]).strip()
-
-        try:
-            os.makedirs("Bayern_Articles/{}/{}".format(issue,date))
-        except OSError as e:
-            if e.errno == errno.EEXIST:
-                print('{}: same article'.format(name))
-
-        if not os.path.isfile("Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page)):
-            urllib.request.urlretrieve(img_link,"Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page))
-        else:
-            print('{}: we already got this file'.format(name))
-    except TypeError:
-        pass
 
 
 
@@ -45,7 +43,11 @@ if __name__ == '__main__':
         if csv_file.startswith('bayer_img_links'):
             image_list = list_maker(csv_file)
             iteration_list = [row for row in image_list]
-            with Pool(cpu_count()) as p:
-                p.map(get_images, iteration_list, chunksize = 1000)
-            p.close()
-            p.join()
+            try:
+                with Pool(cpu_count()) as p:
+                    p.map(get_images, iteration_list, chunksize = 1000)
+            except TypeError:
+                pass
+            finally:
+                p.close()
+                p.join()
