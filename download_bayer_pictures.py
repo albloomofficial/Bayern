@@ -38,12 +38,8 @@ if __name__ == '__main__':
     for csv_file in os.listdir('.'):
         if csv_file.startswith('bayer_img_links'):
             image_list = list_maker(csv_file)
-            for i in range(4):
-                iteration_list = [row for row in image_list]
-                splitter = int(len(iteration_list)/4)
-                iteration_list = iteration_list[i*splitter:(i+1)*splitter]
-                with Pool(cpu_count()) as p:
-                    p.map(get_images, iteration_list, chunksize = 10)
-                p.close()
-                p.join()
-                iteration_list = None
+            iteration_list = [row for row in image_list]
+            with Pool(cpu_count()) as p:
+                p.map(get_images, iteration_list, chunksize = 1000)
+            p.close()
+            p.join()
