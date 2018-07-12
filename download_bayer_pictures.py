@@ -5,7 +5,6 @@ import os, errno
 import pandas as pd
 import multiprocessing
 from multiprocessing import cpu_count, Pool
-from multiprocessing.pool import ThreadPool
 from time import sleep
 
 def list_maker(csv_file):
@@ -48,7 +47,7 @@ if __name__ == '__main__':
         if csv_file.startswith('bayer_img_links'):
             image_list = list_maker(csv_file)
             iteration_list = [row for row in image_list]
-            with ThreadPool(cpu_count()) as p:
+            with Pool(cpu_count()) as p:
                 p.map(get_images, iteration_list, chunksize = 1000)
             p.close()
             p.join()
