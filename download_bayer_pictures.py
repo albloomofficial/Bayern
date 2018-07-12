@@ -22,7 +22,7 @@ def list_maker(csv_file):
 def get_images(row):
     name = multiprocessing.current_process().name
     img_link = row[0].strip()
-    issue = str(row[1].strip().encode("utf-8"))
+    issue = str(row[1].strip().encode("utf-8").decode("utf-8"))
     print(issue)
 
     date = row[4].split('.all')[0]

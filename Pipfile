@@ -6,6 +6,10 @@ name = "pypi"
 [packages]
 tqdm = "*"
 ipython = "*"
+"bs4" = "*"
+pandas = "*"
+requests = "*"
+datetime = "*"
 
 [dev-packages]
 
