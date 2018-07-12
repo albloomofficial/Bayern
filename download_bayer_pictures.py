@@ -47,6 +47,7 @@ if __name__ == '__main__':
                 try:
                     p.map(get_images, iteration_list, chunksize = 1000)
                 except TypeError:
-                    pass
+                    print('pesky TypeError')
+                    continue
             p.close()
             p.join()
