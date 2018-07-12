@@ -46,3 +46,4 @@ if __name__ == '__main__':
                     p.map(get_images, iteration_list, chunksize = 10)
                 p.close()
                 p.join()
+                iteration_list = None
