@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#define encoding language (important for pipenv)
+export LC_ALL=en_US.UTF-8
+export LANG=en_US.UTF-8
+
+#define the working directory and export it to the system PATH
+export PATH=$PATH:$(cd $(dirname "$0") && pwd -P)
+export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/3.6/bin
+cd $(cd $(dirname "$0") && pwd -P)
+
+#Install pipenv
+pip3 install pipenv
+
+#Install the packages we are using in the pipenv
+pipenv install requests
+pipenv install pandas
+pipenv install bs4
+pipenv install datetime
+
+#Run the python scripts
+pipenv run python3 bayer_downloader.py
+pipenv run python3 download_bayer_pictures.py
