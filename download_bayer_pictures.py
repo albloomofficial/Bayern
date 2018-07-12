@@ -7,6 +7,9 @@ import multiprocessing
 from multiprocessing import cpu_count, Pool
 from time import sleep
 
+sys.setdefaultencoding('utf8')
+
+
 def list_maker(csv_file):
     df = pd.read_csv(csv_file)
     list_of_values = df.values.tolist()
@@ -16,7 +19,7 @@ def get_images(row):
     #sadly kept getting a typeerror which I will attach in the read me
     name = multiprocessing.current_process().name
     img_link = row[0].strip()
-    issue = str(row[1].encode("utf-8").strip())
+    issue = row[1].strip()
     print(issue)
 
     date = row[4].split('.all')[0]
