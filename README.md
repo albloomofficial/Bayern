@@ -25,3 +25,6 @@ downloads, but recommend removing later.
 export LC_ALL=en_US.UTF-8
 export LANG=en_US.UTF-8
 ```
+
+In this particular case a better encoding option might be a specifically German
+locale, but for now the English UTF-8 seems to be working fine.
