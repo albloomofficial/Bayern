@@ -32,7 +32,11 @@ def get_images(row):
             print('{}: same article'.format(name))
 
     if not os.path.isfile("Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page)):
-        urllib.request.urlretrieve(img_link,"Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page))
+        try:
+            urllib.request.urlretrieve(img_link,"Bayern_Articles/{}/{}/{}_page{}.jpeg".format(issue,date,date,page))
+        except:
+            print('moving on')
+            pass
     else:
         print('{}: we already got this file'.format(name))
 
